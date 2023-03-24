@@ -1,9 +1,13 @@
 const { MongoClient } = require('mongodb');
 const express = require('express');
+const dotenv = require('dotenv');
 
 const { connet, db } = require('./Shared/Mongo');
+const Users = require('./Routes/Register.rotues');
+const { logging } = require('./Shared/middleware');
 
 const app = express();
+dotenv.config();
 
 (async () => {
     try {
@@ -12,22 +16,18 @@ const app = express();
         await connet();
 
         app.use(express.json());
+        app.use(logging);
 
-        app.get('/get', async (req, resp) => {
-            try {
-                let data = await this.db.collection('users').find().toArray();
-                resp.json(data);
-            } catch (error) {
-                console.log(error);
-            }
-        })
+        //routes
+
+        app.use('/users', Users);
 
 
-        app.listen(process.env.port, () => console.log(`listenting to port-${process.env.port}`))
+        app.listen(process.env.port, () => console.log(`listenting to port-${process.env.port}`));
     }
     catch (error) {
         console.log('error connecting to the server');
         console.log(error);
         process.exit();
     }
-})();
+})()
