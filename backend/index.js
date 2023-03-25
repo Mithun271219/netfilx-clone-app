@@ -1,10 +1,11 @@
 const express = require('express');
 const dotenv = require('dotenv');
 
-const { logging } = require('./shared/middleware')
+const { logging, jwtValidation } = require('./shared/middleware')
 const { connect } = require('./shared/mongo');
 const createAccount = require('./Routes/signUp.routes');
 const singIn = require('./Routes/signIn.routes');
+const user = require('./Routes/users.routes');
 
 const app = express();
 dotenv.config();
@@ -22,6 +23,11 @@ dotenv.config();
         //routes
         app.use('/register', createAccount);
         app.use('/signin', singIn);
+
+        //token validation
+        app.use(jwtValidation);
+
+        app.use('/user', user);
 
         app.listen(process.env.port, () => console.log('server listening to port-', process.env.port));
 

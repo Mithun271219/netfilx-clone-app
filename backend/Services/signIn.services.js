@@ -12,12 +12,11 @@ module.exports = {
             formvalidation && res.status(500).json({ message: formvalidation });
 
             let isuser = await this.users.findOne({ email: req.body.email });
-            !isuser && res.status(401).json({ message: 'user not found please create new account', link: 'http://localhost:5000/register' });
-
+            if (!isuser) return res.status(401).json({ message: 'user not found please create new account', link: 'http://localhost:5000/register' });
 
             let isValiduser = await bcrypt.compare(req.body.password, isuser.password)
             if (isValiduser) {
-                let token = await jwt.sign({ id: isuser._id, name: isuser.name }, process.env.jwtkey, { expiresIn: process.env.jwtexpiery })
+                let token = await jwt.sign({ _id: isuser._id, name: isuser.name }, process.env.jwtkey, { expiresIn: process.env.jwtexpiery })
                 res.json({ message: 'login success', token });
             } else {
                 res.status(401).json({ message: "password or email doesn't match" })

@@ -8,7 +8,7 @@ module.exports = {
         try {
             //validation
             let formvalidation = await validate(signUpSchema, req.body)
-            formvalidation && res.status(500).json({ message: formvalidation });
+            formvalidation ? res.status(400).json({ message: formvalidation }) : null;
 
 
             delete req.body.cpassword;
@@ -19,7 +19,7 @@ module.exports = {
             res.json({ message: 'account created successfully!' });
         } catch (error) {
             console.log(error);
-            res.status(400).json({ message: 'error creating account' });
+            res.status(500).json({ message: 'error creating account' });
         }
     },
     async getallusers(req, res) {
@@ -28,7 +28,7 @@ module.exports = {
             res.json(data);
         } catch (error) {
             console.log(error);
-            res.status(400).json({ message: 'error fetching users details' });
+            res.status(500).json({ message: 'error fetching users details' });
         }
     }
 }

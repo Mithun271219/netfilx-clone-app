@@ -13,6 +13,11 @@ module.exports = {
         cpassword: Joi.ref('password')
     }),
 
+    passwaordChange: Joi.object({
+        password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).required(),
+        cpassword: Joi.ref('password')
+    }),
+
     async validate(schema, data) {
         try {
             await schema.validateAsync(data);
