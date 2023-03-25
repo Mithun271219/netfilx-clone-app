@@ -1,32 +1,26 @@
 const { MongoClient } = require('mongodb');
 
-
-let Mongo = {
+module.exports = {
     db: null,
     users: null,
 
-
-    async connet() {
+    async connect() {
         try {
-            //DB connection
-            let client = await new MongoClient(process.env.mongo_url);
-            await client.connect();
-            console.log('connection sucess')
+            //db connection 
+            let client = await new MongoClient(process.env.mongo_url)
+            client.connect();
+            console.log('db connection success');
 
-            //DB name
-            this.db = await client.db(process.env.mongo_name)
-            console.log(`connected to ${process.env.mongo_name}`)
+            //db name
+            this.db = await client.db(process.env.mongo_name);
+            console.log('conneted to', process.env.mongo_name, 'clone db');
 
-            //db collection
+            //db collections
             this.users = await this.db.collection('users');
-            console.log('mongo collection initilized');
+            console.log('db collection initilized');
 
-        }
-        catch (error) {
+        } catch (error) {
             throw new Error(error);
         }
     }
-
 }
-
-module.exports = Mongo;
