@@ -14,6 +14,7 @@ dotenv.config();
         //db connection
         await connect();
 
+        //using json formating
         app.use(express.json());
 
         app.use(logging);
