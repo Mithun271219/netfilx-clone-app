@@ -42,7 +42,7 @@ module.exports = {
     async changepassword(req, res) {
         try {
             let isValidPassword = await validate(passwaordChange, req.body);
-            if (isValidPassword) return res.status(500).json({ message: isValidPassword });
+            if (isValidPassword) return res.status(400).json({ message: isValidPassword });
             delete req.body.cpassword;
 
             req.body.password = await bcrypt.hash(req.body.password, await bcrypt.genSalt(3));
@@ -50,7 +50,7 @@ module.exports = {
             res.json({ message: 'password changed successfully' });
         } catch (error) {
             console.log(error);
-            // res.status(500).json({ message: "error while changing password" })
+            res.status(500).json({ message: "error while changing password" })
         }
     }
 }

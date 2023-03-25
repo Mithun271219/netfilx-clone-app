@@ -8,8 +8,7 @@ module.exports = {
         try {
             //validation
             let formvalidation = await validate(signUpSchema, req.body)
-            formvalidation ? res.status(400).json({ message: formvalidation }) : null;
-
+            if (formvalidation) return res.status(400).json({ message: formvalidation });
 
             delete req.body.cpassword;
             let salt = await bcrypt.genSalt(3);
