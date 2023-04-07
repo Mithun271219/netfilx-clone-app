@@ -3,6 +3,7 @@ const { MongoClient } = require('mongodb');
 module.exports = {
     db: null,
     users: null,
+    movies: null,
 
     async connect() {
         try {
@@ -17,6 +18,7 @@ module.exports = {
 
             //db collections
             this.users = await this.db.collection('users');
+            this.movies = await this.db.collection('movies');
             console.log('db collection initilized');
 
         } catch (error) {

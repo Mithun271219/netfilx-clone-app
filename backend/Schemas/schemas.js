@@ -25,5 +25,9 @@ module.exports = {
         } catch ({ details: [error] }) {
             return error.message
         }
-    }
+    },
+
+    loadMovies: Joi.object({
+
+    })
 }
