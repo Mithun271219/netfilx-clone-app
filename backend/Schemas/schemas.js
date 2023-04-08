@@ -28,6 +28,16 @@ module.exports = {
     },
 
     loadMovies: Joi.object({
-
+        name: Joi.string(),
+        rating: Joi.number(),
+        image: Joi.string(),
+        lenght: Joi.string(),
+        release: Joi.number(),
+        genres: Joi.array(),
+        cast: Joi.array(),
+        movieis: Joi.string(),
+        description: Joi.string(),
+        mylist: Joi.boolean(),
+        liked: Joi.boolean(),
     })
 }

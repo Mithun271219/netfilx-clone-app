@@ -1,6 +1,5 @@
 
-
-const { movies } = require('../shared/mongo');
+const { } = require('../shared/mongo');
 
 module.exports = {
     async getMovies(req, res) {

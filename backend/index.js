@@ -7,6 +7,7 @@ const createAccount = require('./Routes/signUp.routes');
 const singIn = require('./Routes/signIn.routes');
 const user = require('./Routes/users.routes');
 const movies = require('./Routes/movies.routes');
+const notValidURL = require('./Routes/notVURL.routes');
 
 const app = express();
 dotenv.config();
@@ -30,6 +31,9 @@ dotenv.config();
 
         app.use('/user', user);
         app.use('/movies', movies);
+
+
+        app.use('/*', notValidURL);
 
         app.listen(process.env.port, () => console.log('server listening to port-', process.env.port));
 
